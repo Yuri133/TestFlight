@@ -27,9 +27,9 @@ S      = 30.00;	          % wing area [m^2]
 Sh     = 0.2*S;           % stabiliser area [m^2]
 Sh_S   = Sh/S;	          % [ ]
 lh     = 0.71*5.968;      % tail length [m]
-c      = 2.0569;	  % mean aerodynamic cord [m]
+c      = 2.0569;           % mean aerodynamic cord [m]
 lh_c   = lh/c;	          % [ ]
-b      = 15.911;	  % wing span [m]
+b      = 15.911;           % wing span [m]
 bh     = 5.791;	          % stabilser span [m]
 A      = b^2/S;           % wing aspect ratio [ ]
 Ah     = bh^2/Sh;         % stabilser aspect ratio [ ]
@@ -107,3 +107,5 @@ Cnp    =  -0.0602;
 Cnr    =  -0.2061;
 Cnda   =  -0.0120;
 Cndr   =  -0.0939;
+
+
