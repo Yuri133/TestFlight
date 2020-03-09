@@ -54,7 +54,7 @@ cg(500,A_payload,BEM,pounds_FuelStart,pounds_ZFM,A_fuel,Wlh,Wrh)
 
 function [W] = W(t,pounds_ZFM,pounds_FuelStart,Wlh,Wrh)
 %This function calculates W(t1) = ramp mass - int_0^t1(fuelflow * dt) 
-%The answer is in kg
+%The answer is in [lbs kg]
 time = 9:0.1:t;
 Wlhu = Wlh(1:length(time),1);
 Wrhu = Wrh(1:length(time),1);
@@ -68,6 +68,8 @@ end
 
 
 function [cg] = cg(t,A_payload,BEM,pounds_FuelStart,pounds_ZFM,A_fuel,Wlh,Wrh)
+%This function calculates the cg location and gives at in 
+%[inch meter fractionofMAC]
 time = 9:0.1:t;
 Wlhu = Wlh(1:length(time),1);
 Wrhu = Wrh(1:length(time),1);
