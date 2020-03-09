@@ -9,7 +9,6 @@ D = [7415.33 7699.60 7984.34 8269.06 8554.05 8839.04 9124.80 9410.62 9696.97 998
 A_fuel = [transpose(A) transpose(B); transpose(C) transpose(D)];
 
 
-
 F = griddedInterpolant(A_fuel(:,1),A_fuel(:,2)*100);
 
 F(4067.09)
