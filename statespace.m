@@ -35,11 +35,7 @@ C2(4,1) = Cmu;
 C2(4,2) = Cma;
 C2(4,4) = Cmq;
 
-C1 = C1;
-C2 = C2;
-
 C3 = [CXde; CZde; 0; Cmde];
-C3 =  C3;
 
 A = -1*inv(C1)*C2;
 B = -1*inv(C1)*C3;
@@ -47,8 +43,8 @@ B = -1*inv(C1)*C3;
 C = eye(4);
 D = [0;0;0;0];
 
-space = ss(A,B,C,D);
+symetric = ss(A,B,C,D);
 eig(space.A)
 t = 0:0.01:300;
 u = -3/180*pi*ones(size(t))
-lsim(space, u, t)
+lsim(symetric, u, t)
