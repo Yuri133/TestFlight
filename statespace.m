@@ -51,7 +51,8 @@ C(4,4) = 180/pi;
 D = [0;0;0;0];
 
 symetric = ss(A,B,C,D);
-eig(space.A)
+
+eig(symetric.A)
 t = 0:0.01:300;
 u = -3/180*pi*ones(size(t))
 lsim(symetric, u, t)
