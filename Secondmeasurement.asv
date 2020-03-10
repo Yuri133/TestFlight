@@ -17,10 +17,10 @@ data = [6060	161	5.3	0	2.8	0	462	486	664	5.5;
 5810	179	4.1	0.6	2.8	40	472	496	825	6.2;
 5310	192	3.4	1	2.8	83	482	505	846	8.2];
 
-V = transpose(data(:,2))*0.51444;
+V = transpose(data(:,2));
 Fe = transpose(data(:,6));
-alpha = transpose(data(:,3))/180*pi;
-de = transpose(data(:,4))/180*pi;
+alpha = transpose(data(:,3));
+de = transpose(data(:,4));
 Fe_reduced = [];
 for a=1:1:length(Fe) ;
     temp = Fe(a)*((Weight0/9.81-data(a,9))/(Weight0/9.81))^(-1);
@@ -34,21 +34,14 @@ for a=1:1:length(V) ;
 end
 
 %plotting
-figure();
-scatter(V_reduced,de);
-xlabel('V_reduced (m/s)');
-ylabel('Elevator deflection (rad)');
-
+%figure();
+%scatter(V,de);
 figure();
 scatter(V_reduced,Fe_reduced);
-xlabel('V_reduced (m/s)');
-ylabel('Stick force reduced(N)')
 
-
+format long;
 [r,m,b] = regression(alpha,de);
-
-figure();
-plotregression(alpha,de);
-xlabel = ("Alpha (rad)");
-ylabel = ("Elevator deflection (rad)");
+xlabel = ("alpha");
+%figure();
+%plotregression(alpha,de);
 Cmalpha = -Cmdelta*m;
