@@ -1,6 +1,6 @@
-clear all;
-close all;
-clc;
+% clear all;
+% close all;
+% clc;
 load('matlab.mat')
 %inputs in pounds unless other unit is stated behind it
 
@@ -48,11 +48,11 @@ Wlh = flightdata.lh_engine_FMF.data/3600;       %pounds/s
 Wrh = flightdata.rh_engine_FMF.data/3600;       %pounds/s
 time = flightdata.time.data;                    %s
 
-W(500,pounds_ZFM,pounds_FuelStart,Wlh,Wrh)
-cg(500,A_payload,BEM,pounds_FuelStart,pounds_ZFM,A_fuel,Wlh,Wrh)
+% W(500,pounds_ZFM,pounds_FuelStart,Wlh,Wrh)
+% cg(500,A_payload,BEM,pounds_FuelStart,pounds_ZFM,A_fuel,Wlh,Wrh)
 
 
-function [W] = W(t,pounds_ZFM,pounds_FuelStart,Wlh,Wrh)
+function [Wans] = W(t,pounds_ZFM,pounds_FuelStart,Wlh,Wrh)
 %This function calculates W(t1) = ramp mass - int_0^t1(fuelflow * dt) 
 %The answer is in [lbs kg]
 time = 9:0.1:t;
@@ -61,13 +61,13 @@ Wrhu = Wrh(1:length(time),1);
 F_used = trapz(time,Wlhu)+trapz(time,Wrhu);                                      %needs to look at time in 
 %measurement data and give F_used for that t --> FTIS
 W_lbm = pounds_ZFM + pounds_FuelStart - F_used;
-W_kg = convmass(W_lbm,'lbm','kg');
-W = [W_lbm W_kg];
+W_kg = W_lbm*0.453592;
+Wans = [W_lbm W_kg];
 end
 
 
 
-function [cg] = cg(t,A_payload,BEM,pounds_FuelStart,pounds_ZFM,A_fuel,Wlh,Wrh)
+function [cgans] = cg(t,A_payload,BEM,pounds_FuelStart,pounds_ZFM,A_fuel,Wlh,Wrh)
 %This function calculates the cg location and gives at in 
 %[inch meter fractionofMAC]
 time = 9:0.1:t;
@@ -81,7 +81,7 @@ Fuel2M = griddedInterpolant(A_fuel(:,1),A_fuel(:,2)*100);         %pound-inch
 Mtot = s*b + Fuel2M(Fuel) + BEM(1,1)*BEM(1,2);
 a = W(t,pounds_ZFM,pounds_FuelStart,Wlh,Wrh);
 cg_in = Mtot/a(1,1) - 261.56;            %inch from the leading edge of the MAC
-cg_m = convlength(cg_in,'in','m');
+cg_m = cg_in*0.0254;
 cg_pMAC = cg_in/80.98;
-cg = [cg_in cg_m cg_pMAC];
+cgans = [cg_in cg_m cg_pMAC];
 end
