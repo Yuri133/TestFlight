@@ -66,6 +66,12 @@ D = [0, 0;
 symetric = ss(A,B,C,D);
 
 eig(symetric.A)
-t = 0:0.01:300;
-u = -3/180*pi*ones(size(t), 2);
-lsim(symetric, u, t)
+t = 0:0.01:60;
+u1 = -3/180*pi*ones(size(t));
+u1(2000:end) = 0;
+u2 = zeros(size(t));
+%lsim(symetric, [u2;u1], t)
+%initial(symetric, [2/180*pi, 20/180*pi, 0, 0], 10)
+
+[Modes, eig] = eig(symetric.A)
+initial(symetric, abs(Modes(:,2)))
