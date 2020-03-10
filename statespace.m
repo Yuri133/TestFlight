@@ -40,7 +40,6 @@ C1 = C1*M;
 C2 = C2*M;
 
 C3 = [CXde; CZde; 0; Cmde];
-C3 =  C3;
 
 A = -1*inv(C1)*C2;
 B = -1*inv(C1)*C3;
@@ -51,8 +50,8 @@ C(3,3) = 180/pi;
 C(4,4) = 180/pi;
 D = [0;0;0;0];
 
-space = ss(A,B,C,D, );
+symetric = ss(A,B,C,D);
 eig(space.A)
-
-initial(space, [0, 0, 3/180*pi, 0])
-%step(space)
+t = 0:0.01:300;
+u = -3/180*pi*ones(size(t))
+lsim(symetric, u, t)
