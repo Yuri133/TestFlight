@@ -51,9 +51,10 @@ C(4,4) = 180/pi;
 D = [0;0;0;0];
 
 symmetric = ss(A,B,C,D);
+symmetric.OutputName = ["Velocity deviation", "Angle of Attack", "Body Angle", "Pitch Rate"];
 
 eig(symmetric.A)
-t = 0:0.01:60;
+t = 0:0.01:35;
 u = -0.5/180*pi*ones(size(t));
 u(1:5/0.01) = 0;
 lsim(symmetric, u, t)

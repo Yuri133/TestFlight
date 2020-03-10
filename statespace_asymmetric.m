@@ -64,8 +64,11 @@ D = [0, 0;
      0, 0];
 
 asymmetric = ss(A,B,C,D);
+asymmetric.OutputName = ["Side Slip Angle", "Bank Angle", "Roll Rate", "Yaw Rate"];
 
 eig(asymmetric.A)
 t = 0:0.01:30;
-u = -3/180*pi*ones(size(t, 2), 2);
+u = zeros(size(t, 2), 2);
+u(5/0.01:7.5/0.01, 1) = 1 * pi/180;
+u(7.5/0.01:10/0.01, 1) = -1 * pi/180;
 lsim(asymmetric, u, t)
