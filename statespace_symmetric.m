@@ -51,6 +51,7 @@ C(4,4) = 180/pi;
 D = [0;0;0;0];
 
 symetric = ss(A,B,C,D);
+symetric.OutputName = ["Speed Difference", "Angle of Attack", "Body angle", "pitch rate"]
 
 eig(symetric.A)
 t = 0:0.01:300;
