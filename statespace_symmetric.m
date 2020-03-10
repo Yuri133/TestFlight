@@ -4,7 +4,7 @@ clc;
 
 run("Cit_par.m")
 
-% Symetric Motion
+% Symmetric Motion
 M = eye(4);
 M(1,1) = V0;
 M(4,4) = V0/c;
@@ -17,7 +17,7 @@ C1(1,1) = -2*muc*Dc;
 C1(2,2) = (CZa-2*muc)*Dc;
 C1(3,3) = -Dc;
 C1(4,2) = Cma*Dc;
-C1(4,4) = -2*muc*KY2*Dc;      %sqare or no square?
+C1(4,4) = -2*muc*KY2*Dc;
 
 C2 = zeros(4,4);
 C2(1,1) = CXu;
@@ -50,9 +50,12 @@ C(3,3) = 180/pi;
 C(4,4) = 180/pi;
 D = [0;0;0;0];
 
-symetric = ss(A,B,C,D);
+symmetric = ss(A,B,C,D);
 
-eig(symetric.A)
-t = 0:0.01:300;
-u = -3/180*pi*ones(size(t));
-lsim(symetric, u, t)
+eig(symmetric.A)
+t = 0:0.01:60;
+u = -0.5/180*pi*ones(size(t));
+u(1:5/0.01) = 0;
+lsim(symmetric, u, t)
+%initial(symetric, [0, 2/180*pi, 2/180*pi, 0], t)
+%impulse(symetric, 100)

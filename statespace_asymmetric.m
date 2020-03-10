@@ -4,7 +4,7 @@ clc;
 
 run("Cit_par.m")
 
-% Symetric Motion
+% Asymmetric Motion
 M = eye(4);
 M(3,3) = 2*V0/b;
 M(4,4) = 2*V0/b;
@@ -63,9 +63,9 @@ D = [0, 0;
      0, 0;
      0, 0];
 
-symetric = ss(A,B,C,D);
+asymmetric = ss(A,B,C,D);
 
-eig(symetric.A)
-t = 0:0.01:300;
-u = -3/180*pi*ones(size(t), 2);
-lsim(symetric, u, t)
+eig(asymmetric.A)
+t = 0:0.01:30;
+u = -3/180*pi*ones(size(t, 2), 2);
+lsim(asymmetric, u, t)
