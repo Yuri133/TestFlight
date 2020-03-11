@@ -2,7 +2,7 @@ run("statespace_symmetric.m");
 load("matlab.mat");
 t = flightdata.time.data;
 sampling_rate = 1/(t(2)-t(1));
-t_start = 31840;
+t_start = 31840+330;
 t_end = 34450;
 t = t(t_start:t_end)-t_start/10;
 
