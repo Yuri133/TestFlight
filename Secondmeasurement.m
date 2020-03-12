@@ -22,11 +22,15 @@ Fe = transpose(data(:,6));
 alpha = transpose(data(:,3))/180*pi;
 de = transpose(data(:,4))/180*pi;
 Fe_reduced = [];
+
+%Reducing the Force
 for a=1:1:length(Fe) ;
     temp = Fe(a)*((Weight0/9.81-data(a,9))/(Weight0/9.81))^(-1);
     Fe_reduced = [Fe_reduced temp];
 end
 
+
+%Reducing Velocity
 V_reduced = [];
 for a=1:1:length(V) ;
     temp = V(a)*sqrt((Weight0/9.81-data(a,9))/(Weight0/9.81))^(-1);
@@ -35,9 +39,15 @@ end
 
 %plotting
 figure();
+
 scatter(V_reduced,de);
 xlabel('V_reduced (m/s)');
 ylabel('Elevator deflection (rad)');
+grid on
+ax = gca;
+set(ax, 'Ydir', 'reverse')
+ax.XAxisLocation = 'origin'
+ax.YAxisLocation = 'origin'
 
 figure();
 scatter(V_reduced,Fe_reduced);
@@ -45,10 +55,30 @@ xlabel('V_reduced (m/s)');
 ylabel('Stick force reduced(N)')
 
 
+grid on
+ax2 = gca;
+set(ax2, 'Ydir', 'reverse');
+ax2.XAxisLocation = 'origin'
+ax2.YAxisLocation = 'origin'
+
+
+
 [r,m,b] = regression(alpha,de);
 
+
 figure();
-plotregression(alpha,de);
+x= 0:0.1:5
+y = m*x+b
+scatter(alpha , de);
+plot(x,y)
 xlabel = ("Alpha (rad)");
 ylabel = ("Elevator deflection (rad)");
-Cmalpha = -Cmdelta*m;
+grid on
+ax3 = gca;
+set(ax3, 'Ydir', 'reverse')
+ax3.XAxisLocation = 'origin'
+ax3.YAxisLocation = 'origin'
+
+
+Cmalpha = -Cmdelta*m
+m
