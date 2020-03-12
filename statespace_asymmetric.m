@@ -4,7 +4,7 @@ clc;
 
 run("Cit_par.m")
 
-% Symetric Motion
+% Asymmetric Motion
 M = eye(4);
 M(3,3) = 2*V0/b;
 M(4,4) = 2*V0/b;
@@ -63,15 +63,12 @@ D = [0, 0;
      0, 0;
      0, 0];
 
-symetric = ss(A,B,C,D);
+asymmetric = ss(A,B,C,D);
+asymmetric.OutputName = ["Side Slip Angle", "Bank Angle", "Roll Rate", "Yaw Rate"];
 
-eig(symetric.A)
-t = 0:0.01:60;
-u1 = -3/180*pi*ones(size(t));
-u1(2000:end) = 0;
-u2 = zeros(size(t));
-%lsim(symetric, [u2;u1], t)
-%initial(symetric, [2/180*pi, 20/180*pi, 0, 0], 10)
-
-[Modes, eig] = eig(symetric.A)
-initial(symetric, abs(Modes(:,2)))
+eig(asymmetric.A)
+t = 0:0.01:30;
+u = zeros(size(t, 2), 2);
+u(5/0.01:7.5/0.01, 1) = 1 * pi/180;
+u(7.5/0.01:10/0.01, 1) = -1 * pi/180;
+lsim(asymmetric, u, t)
