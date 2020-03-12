@@ -1,6 +1,9 @@
 run("statespace_symmetric.m");
 load("matlab.mat");
 
+
+flightdata.vane_AOA.data = lowpass(flightdata.vane_AOA.data,0.02,10);
+
 t = flightdata.time.data;
 sampling_rate = 1/(t(2)-t(1));
 t_start = 31840;
